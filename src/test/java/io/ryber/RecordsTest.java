@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -26,6 +27,7 @@ class RecordsTest {
         static List<Bird> flock = new ArrayList<>();
 
         Bird {
+            Objects.requireNonNull(name);
             flock.add(this);
         }
 

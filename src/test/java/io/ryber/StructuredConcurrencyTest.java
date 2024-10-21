@@ -54,14 +54,15 @@ public class StructuredConcurrencyTest {
             if(sleep < 0){
                 throw new RuntimeException(name() + " Exploded");
             }
-            Thread.sleep(Duration.ofMillis(sleep));
-           // System.out.println("%s : %s".formatted(sleep, Utils.isPrime(sleep)));
+            //Thread.sleep(Duration.ofMillis(sleep));
+            int i = Utils.sumOfPrimes(2, 10000);
+            //System.out.println("%s : %s ".formatted(sleep, i));
             race.add(name());
             return name;
         }
 
         public void run() {
-            try {call(); } catch (Exception _){ }
+            try { call(); } catch (Exception _){ }
         }
     }
 

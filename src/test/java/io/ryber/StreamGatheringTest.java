@@ -73,4 +73,24 @@ public class StreamGatheringTest {
                 ,"seed-12345"
         ));
     }
+
+    @Test // This uses virtual threads
+    void mapConcurrent() {
+        var ints = Stream.of(1, 2, 3, 4, 5);
+
+        var result = ints
+                .gather(Gatherers.mapConcurrent(10,
+                        i -> String.valueOf(i + 10)
+                ))
+                .toList();
+
+        assertThat(result)
+                .isEqualTo(List.of(
+                         "11"
+                        ,"12"
+                        ,"13"
+                        ,"14"
+                        ,"15"
+                ));
+    }
 }

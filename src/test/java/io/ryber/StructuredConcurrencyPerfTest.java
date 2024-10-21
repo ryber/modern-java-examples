@@ -26,22 +26,19 @@ public class StructuredConcurrencyPerfTest {
         System.out.println("Done in " + Duration.between(start, LocalDateTime.now()).getSeconds());
     }
 
-    @Test //121 seconds
+    @Test //121 seconds, Prime: 37
     void none() {
         IntStream.range(0, 10000).forEach(i -> {
             new Car(i, 10).run();
-            System.out.println(i);
         });
     }
 
-    @Test // 12 seconds
+    @Test // 12 seconds, Prime: 5
     void threads() {
         try (var executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors())) {
             var futures = IntStream.range(0, 10000).mapToObj(i -> {
                 var car = new Car(i, 10);
-                var f = executor.submit(car);
-                System.out.println(i);
-                return f;
+                return executor.submit(car);
             }).toList();
 
             while(futures.stream().anyMatch(f -> f.state() == RUNNING)){
@@ -50,13 +47,12 @@ public class StructuredConcurrencyPerfTest {
         }
     }
 
-    @Test // < 1 seconds
+    @Test // < 1 seconds, 4 for prime
     void virtualThreads() throws InterruptedException {
         try (var executor =  new StructuredTaskScope<String>()) {
             var futures = IntStream.range(0, 10000).mapToObj(i -> {
                 var car = new Car(i, 10);
-                var f = executor.fork(car);
-                return f;
+                return executor.fork(car);
             }).toList();
 
            executor.join();
