@@ -2,6 +2,7 @@ package io.ryber;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
 import java.util.stream.Gatherers;
 import java.util.stream.Stream;
 
@@ -45,11 +46,31 @@ public class StreamGatheringTest {
         var ints = Stream.of(1, 2, 3, 4, 5);
 
         var result = ints
-                .gather(Gatherers.fold( () -> "",
+                .gather(Gatherers.fold( () -> "seed-",
                                         (string, number) -> string + number
                 ))
                 .findFirst();
 
-        assertThat(result.get()).isEqualTo("12345");
+        assertThat(result.get()).isEqualTo("seed-12345");
+    }
+
+    @Test
+    void scan() {
+        var ints = Stream.of(1, 2, 3, 4, 5);
+
+        var result = ints
+                .gather(Gatherers.scan(
+                        () -> "seed-",
+                        (string, num) -> string + num
+                ))
+                .toList();
+
+        assertThat(result).isEqualTo(List.of(
+                 "seed-1"
+                ,"seed-12"
+                ,"seed-123"
+                ,"seed-1234"
+                ,"seed-12345"
+        ));
     }
 }

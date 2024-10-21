@@ -15,6 +15,7 @@ class RecordsTest {
     void basicRecord() {
         assertThat(new Cat("Barry", 4))
                 .returns("Barry", Cat::name)
+                .returns(4, Cat::age)
                 .returns("Cat[name=Barry, age=4]", Cat::toString)
                 .isEqualTo(new Cat("Barry", 4))
                 .isNotEqualTo(new Cat("Barry", 12))
