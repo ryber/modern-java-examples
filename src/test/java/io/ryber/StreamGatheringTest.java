@@ -45,7 +45,9 @@ public class StreamGatheringTest {
         var ints = Stream.of(1, 2, 3, 4, 5);
 
         var result = ints
-                .gather(Gatherers.fold(() -> "", (string, number) -> string + number))
+                .gather(Gatherers.fold( () -> "",
+                                        (string, number) -> string + number
+                ))
                 .findFirst();
 
         assertThat(result.get()).isEqualTo("12345");

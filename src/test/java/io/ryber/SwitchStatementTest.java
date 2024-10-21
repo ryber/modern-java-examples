@@ -10,8 +10,8 @@ public class SwitchStatementTest {
     void simplified() {
         var species = switch ("Garfield") {
             case "Sylvester", "Tom", "Garfield" -> "cat";
-            case "Goofy", "Pluto" -> "dog";
-            default -> "bird";
+            case "Goofy", "Pluto"               -> "dog";
+            default                             -> "bird";
         };
         assertThat(species)
                 .isEqualTo("cat");

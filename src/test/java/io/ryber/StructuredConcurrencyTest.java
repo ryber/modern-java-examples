@@ -45,8 +45,8 @@ public class StructuredConcurrencyTest {
 
     record Car(String name, int sleep, boolean finished) implements Callable<String> {
         static List<String> race = new ArrayList<>();
-        Car(String name, int sleep){
-            this(name, sleep, false);
+        Car(Object name, int sleep){
+            this(String.valueOf(name), sleep, false);
         }
 
         @Override
@@ -55,8 +55,13 @@ public class StructuredConcurrencyTest {
                 throw new RuntimeException(name() + " Exploded");
             }
             Thread.sleep(Duration.ofMillis(sleep));
+           // System.out.println("%s : %s".formatted(sleep, Utils.isPrime(sleep)));
             race.add(name());
             return name;
+        }
+
+        public void run() {
+            try {call(); } catch (Exception _){ }
         }
     }
 

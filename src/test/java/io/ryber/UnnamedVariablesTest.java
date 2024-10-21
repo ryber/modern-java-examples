@@ -2,6 +2,8 @@ package io.ryber;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.function.BiFunction;
+
 public class UnnamedVariablesTest {
     @Test
     void exceptions() {
@@ -18,6 +20,13 @@ public class UnnamedVariablesTest {
             System.out.print(i + " ");
         }
     }
+
+    @Test
+    void unnamedVariablesInLambdas() {
+        doIt( (_,_) -> true);
+    }
+
+    void doIt(BiFunction<String, Integer, Boolean> func){}
 
     private int runOnce() {
         return 0;

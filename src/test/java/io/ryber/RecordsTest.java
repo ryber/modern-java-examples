@@ -18,7 +18,7 @@ class RecordsTest {
                 .returns("Cat[name=Barry, age=4]", Cat::toString)
                 .isEqualTo(new Cat("Barry", 4))
                 .isNotEqualTo(new Cat("Barry", 12))
-                .isNotEqualTo(new Cat("Ned", 2));
+                .isNotEqualTo(new Cat("Ned", 4));
     }
 
     record Bird(String name, int age, int wingspan){

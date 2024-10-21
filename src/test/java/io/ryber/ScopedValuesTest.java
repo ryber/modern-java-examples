@@ -11,6 +11,5 @@ public class ScopedValuesTest {
         ScopedValue.where(SCOPED, "Cheese")
                 .run(() -> System.out.println("I like " + SCOPED.get()));
     }
-
-
+    
 }
